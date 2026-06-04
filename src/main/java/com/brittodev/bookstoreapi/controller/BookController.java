@@ -6,15 +6,20 @@ import com.brittodev.bookstoreapi.dto.requestDto.BookUpdateRequest;
 import com.brittodev.bookstoreapi.dto.responseDto.BookResponse;
 import com.brittodev.bookstoreapi.service.BookService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequestMapping("/api/books")
+@Validated
 public class BookController {
 
     BookService bookService;
@@ -33,7 +38,7 @@ public class BookController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<BookResponse> updateBook(
-            @PathVariable Long id,
+            @PathVariable @NotNull @Positive Long id,
             @Valid @RequestBody BookUpdateRequest request) {
         return ResponseEntity
                 .status(HttpStatus.OK)
@@ -41,7 +46,7 @@ public class BookController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteById(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteById(@PathVariable @NotNull @Positive Long id) {
         bookService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
@@ -53,7 +58,7 @@ public class BookController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<BookResponse> getById(@PathVariable Long id) {
+    public ResponseEntity<BookResponse> getById(@PathVariable @NotNull @Positive Long id) {
         return ResponseEntity
                 .status(HttpStatus.OK)
                 .body(bookService.getById(id));

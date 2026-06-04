@@ -5,6 +5,7 @@ import com.brittodev.bookstoreapi.dto.requestDto.BookCreateRequest;
 import com.brittodev.bookstoreapi.dto.requestDto.BookUpdateRequest;
 import com.brittodev.bookstoreapi.dto.responseDto.BookResponse;
 import com.brittodev.bookstoreapi.entity.Book;
+import com.brittodev.bookstoreapi.exception.ResourceNotFoundException;
 import com.brittodev.bookstoreapi.mapper.BookMapper;
 import com.brittodev.bookstoreapi.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class BookService {
 
     public BookResponse updateBook(Long id , BookUpdateRequest request) {
         Book book = bookRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("book not found")
+                () -> new ResourceNotFoundException("Book not found for id : " + id)
         );
         BookMapper.toUpdateEntity(request,book);
 
@@ -42,7 +43,7 @@ public class BookService {
 
     public void deleteById(Long id) {
         Book book = bookRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("book not found for this id")
+                () -> new ResourceNotFoundException("Book not found for id : " + id)
         );
         book.setIsDeleted(true);
         bookRepository.save(book);
@@ -59,7 +60,7 @@ public class BookService {
 
     public BookResponse getById(Long id) {
         return BookMapper.toResponse(bookRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Book not found")));
+                .orElseThrow(() -> new ResourceNotFoundException("Book not found for id : " + id)));
     }
 
     public Page<BookResponse> getAll(Integer page , Integer size) {
