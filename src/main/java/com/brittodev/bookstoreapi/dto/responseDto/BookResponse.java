@@ -14,3 +14,4 @@ public record BookResponse(
         String coverImageUrl
 ) {
 }
+

@@ -44,6 +44,7 @@ public class Book {
     Double price;
 
     @CreatedDate
+    @Column(updatable = false)
     LocalDateTime createdAt;
     @LastModifiedDate
     LocalDateTime updatedAt;
