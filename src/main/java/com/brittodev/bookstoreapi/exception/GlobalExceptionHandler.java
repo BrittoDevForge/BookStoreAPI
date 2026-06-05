@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -41,11 +40,11 @@ public class GlobalExceptionHandler {
             HttpServletRequest request
     ) {
         return ResponseEntity
-                .status(HttpStatus.NOT_ACCEPTABLE)
+                .status(HttpStatus.BAD_REQUEST)
                 .body(
                         new ErrorResponse(
                                 LocalDateTime.now(),
-                                HttpStatus.NOT_ACCEPTABLE.value(),
+                                HttpStatus.BAD_REQUEST.value(),
                                 "Invalid input to the API",
                                 exception.getBindingResult().getFieldErrors().stream().findAny().map(
                                     DefaultMessageSourceResolvable::getDefaultMessage

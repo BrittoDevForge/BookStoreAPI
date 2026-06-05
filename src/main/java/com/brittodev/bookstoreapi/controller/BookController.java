@@ -8,7 +8,6 @@ import com.brittodev.bookstoreapi.service.BookService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
-import jakarta.validation.constraints.PositiveOrZero;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -53,7 +52,7 @@ public class BookController {
 
     @DeleteMapping("/")
     public ResponseEntity<Void> deleteAll() {
-        bookService.deleteByAll();
+        bookService.deleteAll();
         return ResponseEntity.noContent().build();
     }
 

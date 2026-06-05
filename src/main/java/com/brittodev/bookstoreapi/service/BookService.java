@@ -49,7 +49,7 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    public void deleteByAll() {
+    public void deleteAll() {
         bookRepository.findAll().forEach(
                 book -> {
                     book.setIsDeleted(true);
