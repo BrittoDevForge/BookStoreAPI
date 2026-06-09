@@ -32,7 +32,7 @@ public class AuthorService {
     public AuthorResponse updateAuthor(Long id,AuthorRequest request) {
         Author author = authorRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Author not found for this id : " + id));
-        AuthorMapper.toUpdateEntity(request,author);
+        AuthorMapper.updateEntityFromRequest(request,author);
         return AuthorMapper.toResponse(authorRepository.save(author));
     }
 

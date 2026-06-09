@@ -23,7 +23,7 @@ public class AuthorMapper {
         );
     }
 
-    public static void toUpdateEntity(AuthorRequest request, Author author) {
+    public static void updateEntityFromRequest(AuthorRequest request, Author author) {
         if (request.bio() != null) {
             author.setBio(request.bio());
         }
